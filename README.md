@@ -4,7 +4,7 @@ An interactive educational application designed to help users learn and practice
 
 ## Preview
 
-![Grid Quest Screenshot](./GridQuest.png) 
+![Grid Quest Screenshot](https://raw.githubusercontent.com/bonanj/GridQuest/main/GridQuest.png)
 
 ---
 
