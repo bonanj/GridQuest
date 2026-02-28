@@ -297,11 +297,11 @@ export default function App() {
           <section className="lg:col-span-5 space-y-4">
             <div className="bg-white p-6 rounded-3xl shadow-sm border border-black/5 h-full flex flex-col">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-medium flex items-center gap-2">
-                  <Search className="w-5 h-5 text-emerald-600" />
+                <h2 className="text-2xl font-semibold flex items-center gap-2">
+                  <Search className="w-6 h-6 text-emerald-600" />
                   Challenges
                 </h2>
-                <span className="text-xs font-mono bg-black/5 px-2 py-1 rounded">
+                <span className="text-xs font-medium bg-gray-100 text-gray-500 px-3 py-1 rounded-full">
                   {questions.filter(q => q.status === 'correct').length}/{questions.length} Solved
                 </span>
               </div>
@@ -314,26 +314,32 @@ export default function App() {
                       "p-5 rounded-2xl border transition-all duration-300",
                       q.status === 'correct' ? "bg-emerald-50 border-emerald-200" : 
                       q.status === 'incorrect' ? "bg-red-50 border-red-200" : 
+                      q.type === 'ai' ? "bg-[#E6F7F1] border-emerald-100" :
                       "bg-[#F9F9F9] border-black/5"
                     )}
                   >
                     <div className="flex items-start justify-between gap-3 mb-4">
-                      <div className="flex gap-3">
-                        <span className="w-6 h-6 rounded-full bg-black text-white text-[10px] flex items-center justify-center shrink-0 font-bold">
+                      <div className="flex gap-4">
+                        <span className="w-8 h-8 rounded-full bg-black text-white text-xs flex items-center justify-center shrink-0 font-bold">
                           {idx + 1}
                         </span>
-                        <p className="text-sm font-medium leading-relaxed">
+                        <div className="space-y-1">
+                          <p className="text-base font-medium leading-tight">
+                            {q.type === 'where' && (
+                              <>Where is the <span className="text-emerald-600 font-bold underline decoration-2 underline-offset-4">{q.targetItem?.name}</span>?</>
+                            )}
+                            {q.type === 'what' && (
+                              <>What can you find at <span className="text-emerald-600 font-bold">({q.targetCoord?.x}, {q.targetCoord?.y})</span>?</>
+                            )}
+                            {q.type === 'ai' && q.aiPrompt}
+                          </p>
                           {q.type === 'where' && (
-                            <>Where is the <span className="text-emerald-600 font-bold underline decoration-2 underline-offset-4">{q.targetItem?.name}</span>? <br/><span className="text-[10px] text-black/40">(Enter as x,y)</span></>
+                            <p className="text-[10px] text-gray-400 font-medium">(Enter as x,y)</p>
                           )}
-                          {q.type === 'what' && (
-                            <>What can you find at <span className="text-emerald-600 font-bold">({q.targetCoord?.x}, {q.targetCoord?.y})</span>?</>
-                          )}
-                          {q.type === 'ai' && q.aiPrompt}
-                        </p>
+                        </div>
                       </div>
-                      {q.status === 'correct' && <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />}
-                      {q.status === 'incorrect' && <XCircle className="w-5 h-5 text-red-600 shrink-0" />}
+                      {q.status === 'correct' && <CheckCircle2 className="w-6 h-6 text-emerald-600 shrink-0" />}
+                      {q.status === 'incorrect' && <XCircle className="w-6 h-6 text-red-600 shrink-0" />}
                     </div>
 
                     <div className="flex flex-col gap-3">
@@ -377,7 +383,7 @@ export default function App() {
                           <button 
                             onClick={() => checkAnswer(q.id)}
                             disabled={q.status === 'correct' || !q.userAnswer.trim()}
-                            className="px-4 py-2 bg-black text-white rounded-xl text-xs font-bold hover:bg-emerald-600 transition-colors disabled:opacity-30 disabled:hover:bg-black"
+                            className="px-6 py-2 bg-gray-400 text-white rounded-xl text-sm font-bold hover:bg-emerald-600 transition-colors disabled:opacity-50 disabled:hover:bg-gray-400"
                           >
                             Check
                           </button>
