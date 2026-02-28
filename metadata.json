@@ -1,0 +1,5 @@
+{
+  "name": "Grid Quest: Coordinate Explorer",
+  "description": "An interactive grid coordinate learning app where users identify images and positions on a coordinate plane.",
+  "requestFramePermissions": []
+}
